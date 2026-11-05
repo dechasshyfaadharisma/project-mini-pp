@@ -120,7 +120,7 @@ int main() {
     int idxPenalang;
     do {
         string namaPenalang = bacaNama("Nama penalang (harus ada di daftar): ");
-idxPenalang = cariIndeks(nama, jumlah, namaPenalang);
+        idxPenalang = cariIndeks(nama, jumlah, namaPenalang);
         if (idxPenalang == -1) cout << "Nama tidak ditemukan, coba lagi.\n";
     } while (idxPenalang == -1);
 
