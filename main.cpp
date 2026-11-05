@@ -71,3 +71,52 @@ double hitungDiskon(double dasar, double persenDiskon) {
 double tambahPajak(double nilai, double persen) {
     return nilai * (1 + persen / 100);
 }
+
+// Bulatkan ke atas ke satuan rupiah. Toleransi 1e-6 menahan error floating point
+long long bulatkanKeAtas(double nilai) {
+    return (long long) ceil(nilai - 1e-6);
+}
+
+int cariIndeks(string nama[], int jumlah, const string& dicari) {
+    for (int i = 0; i < jumlah; i++) {
+        if (nama[i] == dicari) return i;
+    }
+    return -1;
+}
+
+void tampilkanHasil(string nama[], long long tagihan[], int jumlah, int idxPenalang) {
+    cout << "\n=== HASIL PEMBAGIAN TAGIHAN ===\n";
+    long long totalMasuk = 0;
+
+    for (int i = 0; i < jumlah; i++) {
+        if (i == idxPenalang) continue;
+        if (tagihan[i] <= 0) {
+            cout << nama[i] << " sudah lunas\n";
+        } else {
+            cout << nama[i] << " transfer Rp" << tagihan[i]
+                 << " ke " << nama[idxPenalang] << "\n";
+            totalMasuk += tagihan[i];
+        }
+    }
+
+    cout << "\nBagian " << nama[idxPenalang] << " (penalang): Rp"
+         << tagihan[idxPenalang] << "\n";
+    cout << "Total diterima penalang: Rp" << totalMasuk << "\n";
+}
+
+int main() {
+    string nama[MAKS];
+    double pribadi[MAKS], dp[MAKS];
+    long long tagihan[MAKS];
+
+    int jumlah = bacaInt("Jumlah orang (1-100): ", 1, MAKS);
+
+    for (int i = 0; i < jumlah; i++) {
+        nama[i]    = bacaNama("Nama orang ke-" + to_string(i + 1) + ": ");
+        pribadi[i] = bacaDouble("Total pesanan pribadi: ", 0, 1e12);
+        dp[i]      = bacaDouble("Uang muka (DP): ", 0, 1e12);
+    }
+
+    int idxPenalang;
+    do {
+        string namaPenalang = bacaNama("Nama penalang (harus ada di daftar): ");
