@@ -120,3 +120,21 @@ int main() {
     int idxPenalang;
     do {
         string namaPenalang = bacaNama("Nama penalang (harus ada di daftar): ");
+idxPenalang = cariIndeks(nama, jumlah, namaPenalang);
+        if (idxPenalang == -1) cout << "Nama tidak ditemukan, coba lagi.\n";
+    } while (idxPenalang == -1);
+
+    double totalBersama = bacaDouble("Total pesanan bersama: ", 0, 1e12);
+    double persenDiskon = bacaDouble("Diskon (%) 0-100: ", 0, 100);
+    double persenPajak  = bacaDouble("Pajak dan layanan (%): ", 0, 100);
+
+    double bagian = bagiRata(totalBersama, jumlah);
+    for (int i = 0; i < jumlah; i++) {
+        double dasar  = pribadi[i] + bagian;
+        double diskon = hitungDiskon(dasar, persenDiskon);
+        double akhir  = tambahPajak(dasar - diskon, persenPajak);
+        tagihan[i] = bulatkanKeAtas(akhir) - (long long) dp[i];
+    }
+
+    tampilkanHasil(nama, tagihan, jumlah, idxPenalang);
+    return 0;
