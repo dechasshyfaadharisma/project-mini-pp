@@ -1,3 +1,10 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <cstdlib>
+#include <cmath>
+using namespace std;
+
 const int MAKS = 100;
 
 // ---------- Input yang aman ----------
